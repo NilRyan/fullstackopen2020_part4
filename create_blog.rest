@@ -14,3 +14,14 @@ GET http://localhost:3003/api/blogs
 ###
 DELETE http://localhost:3003/api/blogs/603b8936754136d166e31ca5
 
+###
+PUT  http://localhost:3003/api/blogs/603b8936754136d166e31ca7
+Content-Type: application/json
+
+{
+  "title": "MyBffloghaha",
+  "author": "Neiss Ryan",
+  "url": "www.nilbsslog.com",
+  "likes": 999933
+}
+
