@@ -1,11 +1,11 @@
-const listHelper = require('../utils/list_helper')
+const listHelper = require('../utils/list_helper');
 
 test('dummy returns one', () => {
-  const blogs = []
+  const blogs = [];
 
-  const result = listHelper.dummy(blogs)
+  const result = listHelper.dummy(blogs);
   expect(result).toBe(1);
-})
+});
 
 describe('total likes', () => {
   const listWithOneBlog = [
@@ -13,17 +13,18 @@ describe('total likes', () => {
       _id: '5a422aa71b54a676234d17f8',
       title: 'Go To Statement Considered Harmful',
       author: 'Edsger W. Dijkstra',
-      url: 'http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html',
+      url:
+        'http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html',
       likes: 5,
-      __v: 0
-    }
-  ]
+      __v: 0,
+    },
+  ];
 
   test('when list has only one blog, equals the likes of that', () => {
-    const result = listHelper.totalLikes(listWithOneBlog)
-    expect(result).toBe(5)
-  })
-})
+    const result = listHelper.totalLikes(listWithOneBlog);
+    expect(result).toBe(5);
+  });
+});
 
 describe('favorite blog', () => {
   const listOfBlogs = [
@@ -41,18 +42,18 @@ describe('favorite blog', () => {
       title: 'Go To Statement Considered Harmful',
       author: 'Edsger W. Dijkstra',
       likes: 41241,
-    }
-  ]
+    },
+  ];
 
   test('given an array of blogs, return most liked blog', () => {
     const result = listHelper.favoriteBlog(listOfBlogs);
-    expect(result).toEqual( {
+    expect(result).toEqual({
       title: 'Go To Statement Considered Harmful',
       author: 'Edsger W. Dijkstra',
       likes: 41241,
-    })
-  })
-})
+    });
+  });
+});
 
 describe('most blogs', () => {
   const listOfBlogs = [
@@ -70,17 +71,17 @@ describe('most blogs', () => {
       title: 'Go To Statement Considered Harmful',
       author: 'Edsger W. Dijkstra',
       blogs: 41241,
-    }
-  ]
+    },
+  ];
 
   test('given an array of blogs, return author with most blogs and blog count', () => {
-    const result = listHelper.mostBlogs(listOfBlogs)
+    const result = listHelper.mostBlogs(listOfBlogs);
     expect(result).toEqual({
       author: 'Edsger W. Dijkstra',
-      blogs: 41241
-    })
-  })
-})
+      blogs: 41241,
+    });
+  });
+});
 
 describe('most liked blog', () => {
   const listOfBlogs = [
@@ -88,27 +89,27 @@ describe('most liked blog', () => {
       title: 'Considered Harmful',
       author: 'Mr. Pogi',
       blogs: 165,
-      likes: 4214
+      likes: 4214,
     },
     {
       title: 'Go To Statement Considered Harmful',
       author: 'Edsger W. Dijkstra',
       blogs: 5,
-      likes: 21421
+      likes: 21421,
     },
     {
       title: 'Go To Statement Considered Harmful',
       author: 'Edsger W. Dijkstra',
       blogs: 41241,
-      likes: 214
-    }
-  ]
+      likes: 214,
+    },
+  ];
 
   test('given an array of blogs, return author with most likes and likes count', () => {
     const result = listHelper.mostLikes(listOfBlogs);
-    expect(result).toEqual( {
+    expect(result).toEqual({
       author: 'Edsger W. Dijkstra',
-      likes: 21421
-    })
-  })
-})
+      likes: 21421,
+    });
+  });
+});
