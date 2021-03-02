@@ -1,0 +1,12 @@
+post http://localhost:3003/api/users
+Content-Type: application/json
+ 
+{
+  "username": "neil",
+  "name": "neil ryan l",
+  "password": "pogi"
+}
+
+### 
+delete http://localhost:3003/api/users/603e47db743610d9dd9bf513
+
