@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
+const jwt = require('jsonwebtoken');
 const app = require('../app');
 const Blog = require('../models/blog');
 const User = require('../models/user');
+const { requestLogger } = require('../utils/middleware');
 
 const api = supertest(app);
 const initialBlogs = [
@@ -59,6 +61,18 @@ describe('requests', () => {
   });
 
   test('create new blog post', async () => {
+    const newUser = {
+      username: 'neil',
+      name: 'Neil Ryan',
+      password: 'bagsak',
+    };
+    await api.post('/api/users').send(newUser);
+    const result = await api.post('/api/login').send({
+      username: 'neil',
+      password: 'bagsak',
+    });
+
+    const { token } = result.body;
     const newBlog = {
       title: 'MyBlog',
       author: 'Ryan',
@@ -68,6 +82,7 @@ describe('requests', () => {
 
     await api
       .post('/api/blogs')
+      .set('Authorization', `bearer ${token.toString()}`)
       .send(newBlog)
       .expect(201)
       .expect('Content-Type', /application\/json/);
@@ -86,12 +101,29 @@ describe('requests', () => {
   });
 
   test('no title and url returns a status code of 400 Bad Request', async () => {
+    const newUser = {
+      username: 'neil',
+      name: 'Neil Ryan',
+      password: 'bagsak',
+    };
+    await api.post('/api/users').send(newUser);
+    const result = await api.post('/api/login').send({
+      username: 'neil',
+      password: 'bagsak',
+    });
+
+    const { token } = result.body;
+
     const newBlog = {
       author: 'Ryans',
       likes: 300,
     };
 
-    await api.post('/api/blogs').send(newBlog).expect(400);
+    await api
+      .post('/api/blogs')
+      .set('Authorization', `bearer ${token}`)
+      .send(newBlog)
+      .expect(400);
   });
 
   test('invalid users are not created and proper status code and error messages are sent', async () => {
