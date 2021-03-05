@@ -1,25 +1,28 @@
 const blogsRouter = require('express').Router();
+const jwt = require('jsonwebtoken');
 const Blog = require('../models/blog');
 const User = require('../models/user');
 const logger = require('../utils/logger');
 
-blogsRouter.get('/', async (request, response) => {
-  // a join query functionality is done by mongoose by making multiple queries
-  // the user: user_id pair is populated with the corresponding user who created the blog
-  const blogs = await Blog.find({}).populate('user', {
-    username: 1,
-    name: 1,
-    id: 1,
-  });
-  logger.info('--BLOGS--', blogs);
-  response.json(blogs);
-});
+const getTokenFrom = (request) => {
+  const authorization = request.get('authorization');
+  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+    return authorization.substring(7);
+  }
+  return null;
+};
 
 blogsRouter.post('/', async (request, response, next) => {
   try {
     const { body } = request;
+    logger.info(request);
+    const token = getTokenFrom(request);
+    const decodedToken = jwt.verify(token, process.env.SECRET);
+    if (!token || !decodedToken.id) {
+      return response.status(401).json({ error: 'token missing or invalid' });
+    }
 
-    const user = await User.findOne();
+    const user = await User.findById(decodedToken.id);
     logger.info(user);
     const blog = new Blog({
       title: body.title,
@@ -37,6 +40,18 @@ blogsRouter.post('/', async (request, response, next) => {
   } catch (error) {
     next(error);
   }
+});
+
+blogsRouter.get('/', async (request, response) => {
+  // a join query functionality is done by mongoose by making multiple queries
+  // the user: user_id pair is populated with the corresponding user who created the blog
+  const blogs = await Blog.find({}).populate('user', {
+    username: 1,
+    name: 1,
+    id: 1,
+  });
+  logger.info('--BLOGS--', blogs);
+  response.json(blogs);
 });
 
 blogsRouter.put('/:id', async (request, response, next) => {
