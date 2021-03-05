@@ -2,10 +2,10 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-  "title": "MyBloghaha",
-  "author": "Neil Ryan",
-  "url": "www.nilblog.com",
-  "likes": 9999
+  "title": "To You",
+  "author": "I",
+  "url": "www.I.com",
+  "likes": 15
 }
 
 ###

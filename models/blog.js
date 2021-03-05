@@ -11,6 +11,11 @@ const blogSchema = new mongoose.Schema({
     required: true,
   },
   likes: Number,
+  // creates a reference for the creator of the blog and enables the populate method
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
 });
 
 blogSchema.set('toJSON', {

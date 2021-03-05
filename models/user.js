@@ -2,6 +2,13 @@ const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
 const userSchema = new mongoose.Schema({
+  // creates a reference for  blogs created and enables the populate method
+  blogs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Blog',
+    },
+  ],
   // validation for username is added in the schema
   username: {
     type: String,

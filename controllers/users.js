@@ -1,5 +1,6 @@
 const usersRouter = require('express').Router();
 const bcrypt = require('bcrypt');
+const blog = require('../models/blog');
 const User = require('../models/user');
 
 usersRouter.post('/', async (request, response, next) => {
@@ -31,7 +32,8 @@ usersRouter.post('/', async (request, response, next) => {
 
 usersRouter.get('/', async (request, response, next) => {
   try {
-    const users = await User.find({});
+    // populate method is added to query and show the blogs created by the user using the ids as reference
+    const users = await User.find({}).populate('blogs');
     response.json(users);
   } catch (exception) {
     next(exception);
