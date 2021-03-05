@@ -2,9 +2,9 @@ post http://localhost:3003/api/users
 Content-Type: application/json
  
 {
-  "username": "luka",
-  "name": "Luka Doncic",
-  "password": "pasado"
+  "username": "neil",
+  "name": "Neil Ryan",
+  "password": "bagsak"
 }
 
 ### 
