@@ -6,3 +6,4 @@ Exercises for part 4 of Fullstack Open 2020.
   3. Async and Await usage instead of promises
   4. User administration / basic authentication and authorization implementation
   5. TOKEN authentication using jsonwebtokens library
+  6. 'Join" like queries by using Mongoose and the populate method
