@@ -1,4 +1,4 @@
-# part4---Fullstack-Open-2020
+# fullstackopen2020_part4
 Exercises for part 4 of Fullstack Open 2020.
 ## Learning Outcomes
   1. Model & Controller implemented from MVC design pattern 
